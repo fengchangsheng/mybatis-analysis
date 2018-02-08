@@ -31,6 +31,9 @@ import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 
+/**
+ * SqlSessionFactoryBean中默认创建了这个
+ */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
   private final Configuration configuration;
@@ -82,6 +85,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
       final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);
       tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
       final Executor executor = configuration.newExecutor(tx, execType, autoCommit);
+      // 创建了默认的sqlSession
       return new DefaultSqlSession(configuration, executor);
     } catch (Exception e) {
       closeTransaction(tx); // may have fetched a connection so lets call close()

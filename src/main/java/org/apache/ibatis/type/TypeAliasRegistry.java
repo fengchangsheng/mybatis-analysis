@@ -31,6 +31,9 @@ import java.util.Set;
 import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.io.Resources;
 
+/**
+ * 类型别名
+ */
 public class TypeAliasRegistry {
 
   private final HashMap<String, Class<?>> TYPE_ALIASES = new HashMap<String, Class<?>>();

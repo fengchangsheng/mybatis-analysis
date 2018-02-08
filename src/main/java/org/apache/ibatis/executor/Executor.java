@@ -26,6 +26,9 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
+/**
+ * Mybatis执行器，负责Sql动态语句的生成和查询缓存的维护
+ */
 public interface Executor {
 
   ResultHandler NO_RESULT_HANDLER = null;

@@ -460,6 +460,7 @@ public class Configuration {
     if (cacheEnabled) {
       executor = new CachingExecutor(executor, autoCommit);
     }
+    // 执行对插件的调用
     executor = (Executor) interceptorChain.pluginAll(executor);
     return executor;
   }

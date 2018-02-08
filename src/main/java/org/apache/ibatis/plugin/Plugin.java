@@ -62,6 +62,21 @@ public class Plugin implements InvocationHandler {
     }
   }
 
+  /**
+   * 获取注解 for example:
+   * @Intercepts({@Signature(
+   * type = Executor.class,
+   * method = "query",
+   * args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
+   * ),@Signature(type = Executor.class,
+   * method = "update",
+   * args = {MappedStatement.class, Object.class})
+   * })
+   * public class CustomReplaceSQLInterceptor implements Interceptor {
+   * }
+   * @param interceptor
+   * @return
+   */
   private static Map<Class<?>, Set<Method>> getSignatureMap(Interceptor interceptor) {
     Intercepts interceptsAnnotation = interceptor.getClass().getAnnotation(Intercepts.class);
     if (interceptsAnnotation == null) { // issue #251

@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 /**
  * A parameter handler sets the parameters of the {@code PreparedStatement}
- *
+ * 负责根据传递的参数值，对statement设置参数
  */
 public interface ParameterHandler {
 

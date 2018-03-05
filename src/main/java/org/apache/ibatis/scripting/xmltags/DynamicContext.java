@@ -25,6 +25,9 @@ import ognl.PropertyAccessor;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 
+/**
+ * OGNL处理参数
+ */
 public class DynamicContext {
 
   public static final String PARAMETER_OBJECT_KEY = "_parameter";
@@ -38,11 +41,15 @@ public class DynamicContext {
   private final StringBuilder sqlBuilder = new StringBuilder();
   private int uniqueNumber = 0;
 
+  /**
+   * 针对不同参数类型的处理
+   */
   public DynamicContext(Configuration configuration, Object parameterObject) {
+    // 非空并且非Map类型: 基本数据类型和复杂对象  与前两次参数的处理有关
     if (parameterObject != null && !(parameterObject instanceof Map)) {
       MetaObject metaObject = configuration.newMetaObject(parameterObject);
       bindings = new ContextMap(metaObject);
-    } else {
+    } else {// 参数为null或者是Map类型
       bindings = new ContextMap(null);
     }
     bindings.put(PARAMETER_OBJECT_KEY, parameterObject);

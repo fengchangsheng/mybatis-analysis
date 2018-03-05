@@ -49,13 +49,21 @@ public class XMLScriptBuilder extends BaseBuilder {
     this.context = parser.evalNode("/script");
   }
 
+  /**
+   * 解析脚本节点  如<select></select>下的<if><if/> <foreach></foreach>
+   * @return DynamicSqlSource
+   */
   public SqlSource parseScriptNode() {
+    // 解析完后保存到contents集合中   由层级关系转为平级的集合
     List<SqlNode> contents = parseDynamicTags(context);
     MixedSqlNode rootSqlNode = new MixedSqlNode(contents);
     SqlSource sqlSource = new DynamicSqlSource(configuration, rootSqlNode);
     return sqlSource;
   }
 
+  /**
+   * 解析动态标签，在else if块中，会被其他非TextSqlNode的handleNode方法再次调用，层层剥离成TextSqlNode
+   */
   private List<SqlNode> parseDynamicTags(XNode node) {
     List<SqlNode> contents = new ArrayList<SqlNode>();
     NodeList children = node.getNode().getChildNodes();
@@ -154,6 +162,7 @@ public class XMLScriptBuilder extends BaseBuilder {
 
   private class IfHandler implements NodeHandler {
     public void handleNode(XNode nodeToHandle, List<SqlNode> targetContents) {
+      // 调用parseDynamicTags继续解析  直到TextSqlNode
       List<SqlNode> contents = parseDynamicTags(nodeToHandle);
       MixedSqlNode mixedSqlNode = new MixedSqlNode(contents);
       String test = nodeToHandle.getStringAttribute("test");

@@ -216,13 +216,17 @@ public class MapperMethod {
       this.params = Collections.unmodifiableSortedMap(getParams(method, this.hasNamedParameters));
     }
 
+    /**
+     * 对应老版本的getParam(Object[] args)
+     * 对参数的初步处理
+     */
     public Object convertArgsToSqlCommandParam(Object[] args) {
       final int paramCount = params.size();
       if (args == null || paramCount == 0) {
         return null;
       } else if (!hasNamedParameters && paramCount == 1) {
         return args[params.keySet().iterator().next()];
-      } else {
+      } else {//使用了@param注解 或者 参数大于一个
         final Map<String, Object> param = new ParamMap<Object>();
         int i = 0;
         for (Map.Entry<Integer, String> entry : params.entrySet()) {

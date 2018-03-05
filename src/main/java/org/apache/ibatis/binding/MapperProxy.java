@@ -22,6 +22,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+/**
+ * 为每个Mapper接口生成代理类
+ */
 public class MapperProxy<T> implements InvocationHandler, Serializable {
 
   private static final long serialVersionUID = -6424540398559729838L;

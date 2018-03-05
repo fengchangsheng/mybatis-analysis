@@ -22,6 +22,9 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.session.Configuration;
 
+/**
+ * 动态sql资源（包括参数的初步处理  ${} #{}）
+ */
 public class DynamicSqlSource implements SqlSource {
 
   private Configuration configuration;
@@ -34,9 +37,11 @@ public class DynamicSqlSource implements SqlSource {
 
   public BoundSql getBoundSql(Object parameterObject) {
     DynamicContext context = new DynamicContext(configuration, parameterObject);
+    // 处理各类节点（if foreach choose等）  层层剥离直到最后一个TextSqlNode  然后处理${}（直接替换为参数）
     rootSqlNode.apply(context);
     SqlSourceBuilder sqlSourceParser = new SqlSourceBuilder(configuration);
     Class<?> parameterType = parameterObject == null ? Object.class : parameterObject.getClass();
+    // 解析后返回静态Sql资源  即 StaticSqlSource  包括#{}的初步处理（替换为?占位符）
     SqlSource sqlSource = sqlSourceParser.parse(context.getSql(), parameterType, context.getBindings());
     BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
     for (Map.Entry<String, Object> entry : context.getBindings().entrySet()) {

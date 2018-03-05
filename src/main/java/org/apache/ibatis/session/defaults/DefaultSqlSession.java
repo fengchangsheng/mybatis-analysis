@@ -234,6 +234,11 @@ public class DefaultSqlSession implements SqlSession {
     return dirty || force;
   }
 
+  /**
+   * 包装集合
+   * 只有一个参数并且没有使用@param注解 如果这个参数是List或者Array类型就会在这里被处理下
+   * 这样在foreach或者其他表达式中使用的话就要使用这个默认赋予的参数别名 -- list 、array
+   */
   private Object wrapCollection(final Object object) {
     if (object instanceof List) {
       StrictMap<Object> map = new StrictMap<Object>();

@@ -31,6 +31,10 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
+/**
+ * 缓存执行器  在缓存开启的情况下使用(<setting name="cacheEnabled" value="true" />)
+ * 运用代理模式  传入被代理的executor  加入缓存的处理
+ */
 public class CachingExecutor implements Executor {
 
   private Executor delegate;

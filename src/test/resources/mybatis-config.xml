@@ -52,6 +52,6 @@
     </environments>
 
     <mappers>
-        <mapper resource="com/fcs/dao/UserMapper.xml"></mapper>
+        <mapper resource="com/fcs/demo/dao/UserMapper.xml"></mapper>
     </mappers>
 </configuration>

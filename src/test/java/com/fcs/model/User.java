@@ -1,17 +1,23 @@
 package com.fcs.model;
 
-import com.fcs.model.ExtUserInfo;
-
 /**
  * Created by fengcs on 2018/3/2.
  */
 public class User {
-
+    private int id;
     private String username;
     private String password;
     private int age;
 
     private ExtUserInfo extUserInfo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

@@ -286,7 +286,7 @@ public class MapperBuilderAssistant extends BaseBuilder {
     
     id = applyCurrentNamespace(id, false);
     boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
-
+    // 构建MappedStatement
     MappedStatement.Builder statementBuilder = new MappedStatement.Builder(configuration, id, sqlSource, sqlCommandType);
     statementBuilder.resource(resource);
     statementBuilder.fetchSize(fetchSize);
@@ -354,7 +354,7 @@ public class MapperBuilderAssistant extends BaseBuilder {
       ResultSetType resultSetType,
       MappedStatement.Builder statementBuilder) {
     resultMap = applyCurrentNamespace(resultMap, true);
-
+    // 接受resultMap名称和resultType的Class  统一使用resultMaps封装
     List<ResultMap> resultMaps = new ArrayList<ResultMap>();
     if (resultMap != null) {
       String[] resultMapNames = resultMap.split(",");

@@ -6,4 +6,8 @@
        select * from tb_user where id = #{id}
     </select>
 
+    <select id="selectUserList" resultType="com.fcs.model.User">
+        select * from tb_user
+    </select>
+
 </mapper>

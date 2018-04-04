@@ -151,7 +151,7 @@ public class FastResultSetHandler implements ResultSetHandler {
         }
       }
     }
-
+    // 验证是否定义了resultType或者resultMap
     validateResultMapsCount(rs, resultMapCount);
     while (rs != null && resultMapCount > resultSetCount) {
       final ResultMap resultMap = resultMaps.get(resultSetCount);

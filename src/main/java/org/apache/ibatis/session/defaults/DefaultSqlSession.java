@@ -35,6 +35,9 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+/**
+ * 默认的SqlSession
+ */
 public class DefaultSqlSession implements SqlSession {
 
   private Configuration configuration;

@@ -3,11 +3,17 @@ package com.fcs.demo;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.fcs.demo.dao.UserMapper;
 import com.fcs.model.User;
-import com.ibatis.common.resources.Resources;
+//import com.ibatis.common.resources.Resources;
+import com.fcs.plugins.LimitInterceptor;
+import com.fcs.plugins.PagingInterceptor;
+import com.fcs.plugins.PagingRowBound;
 import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.*;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +24,8 @@ import java.util.List;
  */
 public class SqlSessionTest {
 
+    private static Logger logger = LoggerFactory.getLogger(SqlSessionTest.class);
+
     public static SqlSessionFactory getSqlSessionByCode(){
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -27,24 +35,28 @@ public class SqlSessionTest {
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("test", transactionFactory, dataSource);
         Configuration configuration = new Configuration(environment);
+//        Interceptor interceptor = new PagingInterceptor();
+        Interceptor limitInterceptor = new LimitInterceptor();
+//        configuration.addInterceptor(interceptor);
+        configuration.addInterceptor(limitInterceptor);
 //        configuration.getTypeAliasRegistry().registerAlias();
         configuration.addMapper(UserMapper.class);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
     }
 
-    public static SqlSessionFactory getSqlSessionByXml(){
-        String resource = "mybatis-config.xml";
-        SqlSessionFactory sqlSessionFactory = null;
-        try {
-            InputStream inputStream = Resources.getResourceAsStream(resource);
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            return sqlSessionFactory;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sqlSessionFactory;
-    }
+//    public static SqlSessionFactory getSqlSessionByXml(){
+//        String resource = "mybatis-config.xml";
+//        SqlSessionFactory sqlSessionFactory = null;
+//        try {
+//            InputStream inputStream = Resources.getResourceAsStream(resource);
+//            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+//            return sqlSessionFactory;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return sqlSessionFactory;
+//    }
 
     public static void main(String[] args) {
         SqlSessionFactory sqlSessionFactory = getSqlSessionByCode();
@@ -53,9 +65,10 @@ public class SqlSessionTest {
         try {
             sqlSession = sqlSessionFactory.openSession();
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            List<User> userList = userMapper.selectUserList(new RowBounds(0,5));
+            PagingRowBound pagingRowBound = new PagingRowBound(0, 5);
+            List<User> userList = userMapper.selectUserList(pagingRowBound);
             for (User user : userList) {
-                System.out.println(user.getId() + "=====" + user.getUsername());
+                logger.info(user.getId() + " ========= " + user.getUsername());
             }
 //            User user = userMapper.getUserById(1);
 //            System.out.println(user.getUsername());

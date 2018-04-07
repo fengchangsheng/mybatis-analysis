@@ -39,6 +39,10 @@
         <typeAlias type="com.fcs.demo.DruidDataSourceFactory" alias="DRUID"></typeAlias>
     </typeAliases>
 
+    <plugins>
+        <plugin interceptor="com.fcs.plugins.PagingInterceptor" ></plugin>
+    </plugins>
+
     <environments default="test">
         <environment id="test">
             <transactionManager type="JDBC"></transactionManager>

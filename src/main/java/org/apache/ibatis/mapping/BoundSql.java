@@ -22,6 +22,9 @@ import java.util.Map;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 
+/**
+ * 动态Sql
+ */
 public class BoundSql {
 
   private String sql;

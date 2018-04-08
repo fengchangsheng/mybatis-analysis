@@ -36,11 +36,11 @@
     <!--</plugins>-->
 
     <typeAliases>
-        <typeAlias type="com.fcs.demo.DruidDataSourceFactory" alias="DRUID"></typeAlias>
+        <typeAlias type="com.fcs.jdbc.DruidDataSourceFactory" alias="DRUID"></typeAlias>
     </typeAliases>
 
     <plugins>
-        <plugin interceptor="com.fcs.plugins.PagingInterceptor" ></plugin>
+        <plugin interceptor="com.fcs.plugins.paging.PagingInterceptor" ></plugin>
     </plugins>
 
     <environments default="test">

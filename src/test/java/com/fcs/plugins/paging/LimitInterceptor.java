@@ -1,4 +1,4 @@
-package com.fcs.plugins;
+package com.fcs.plugins.paging;
 
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;

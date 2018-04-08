@@ -1,5 +1,6 @@
-package com.fcs.proxy;
+package com.fcs.demo.service.impl;
 
+import com.fcs.demo.service.UserService;
 import com.fcs.model.User;
 
 /**

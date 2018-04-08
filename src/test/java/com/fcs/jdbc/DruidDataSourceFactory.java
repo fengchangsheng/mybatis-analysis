@@ -1,4 +1,4 @@
-package com.fcs.demo;
+package com.fcs.jdbc;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.datasource.DataSourceFactory;

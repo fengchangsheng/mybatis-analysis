@@ -1,6 +1,7 @@
 package com.fcs.demo.dao;
 
 import com.fcs.model.User;
+import com.fcs.plugins.paging.PagingList;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface UserMapper {
 
     User getUserById(int id);
 
-    List<User> selectUserList(RowBounds rowBounds);
+    PagingList<User> selectUserList(RowBounds rowBounds);
+
+    List<User> selectUserList();
 
 }

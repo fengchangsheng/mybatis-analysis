@@ -1,5 +1,7 @@
 package com.fcs.proxy;
 
+import com.fcs.demo.service.UserService;
+import com.fcs.demo.service.impl.UserServiceImpl;
 import com.fcs.model.User;
 
 import java.lang.reflect.InvocationHandler;

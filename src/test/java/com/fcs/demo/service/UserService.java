@@ -9,4 +9,6 @@ public interface UserService {
 
     public User getUser();
 
+    public Object plugin();
+
 }
